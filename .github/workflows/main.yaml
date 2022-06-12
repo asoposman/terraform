@@ -22,12 +22,6 @@ jobs:
           only_warn: true
           iac_dir: 'aws'
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Terrascan
-          path: terrascan-output.json
-        if: always()
-
   tflint:
     runs-on: ubuntu-latest
     steps:
