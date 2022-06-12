@@ -1,4 +1,18 @@
 jobs:
+  tfsec:
+    machine: true
+    steps:
+      - checkout
+
+      - run: |
+          docker run --rm -v $(pwd):/src aquasec/tfsec /src -f json | tee tfsec-output.json
+          when: on_fail
+
+      - store_artifacts:
+          path: tfsec-output.json
+          destination: tfsec-artifact
+          when: always
+
   terrascan:
     machine: true
     steps:
@@ -67,6 +81,7 @@ workflows:
   version: 2
   terraform:
     jobs:
+      - tfsec
       - terrascan
       - checkov
       - tflint
