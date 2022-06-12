@@ -21,12 +21,12 @@ jobs:
           policy_type: 'aws'
           only_warn: true
           iac_dir: 'aws'
-          json_upload: true
+          sarif_upload: true
 
       - uses: actions/upload-artifact@v2
         with:
           name: Terrascan
-          path: terrascan.json
+          path: terrascan.sarif
         if: always()
 
   tflint:
